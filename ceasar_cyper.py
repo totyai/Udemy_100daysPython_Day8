@@ -32,7 +32,9 @@ def cyper(phrase, mode):
 
 
     for letter in phrase:
-       if letter.islower():
+       if letter.lower() not in ascii_lowercase:
+           new_phrase += letter
+       elif letter.islower():
            position = ascii_lowercase.index(letter)
 
            #Accounting for overflow
