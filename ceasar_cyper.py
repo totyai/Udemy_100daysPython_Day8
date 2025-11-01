@@ -29,17 +29,33 @@ def main():
 # TODO - Encrypt - make simpler, check for edge case - z
 def cyper(phrase, mode):
     global new_phrase
+
+
     for letter in phrase:
        if letter.islower():
            position = ascii_lowercase.index(letter)
+
+           #Accounting for overflow
+           overflow_position = position + shift_key
+           if overflow_position > 25:
+               overflow_position -= 26
+    
+            
            if mode == "encode":
-               new_phrase += ascii_lowercase[position + shift_key]
+               new_phrase += ascii_lowercase[overflow_position]
            else:
                new_phrase += ascii_lowercase[position - shift_key]
        elif letter.isupper():
            position = ascii_uppercase.index(letter)
+
+            #Accounting for overflow
+           overflow_position = position + shift_key
+           if overflow_position > 25:
+               overflow_position -= 26
+
+            
            if mode == "encode":
-               new_phrase += ascii_uppercase[position + shift_key]
+               new_phrase += ascii_uppercase[overflow_position]
            else:
                new_phrase += ascii_uppercase[position - shift_key]
     return new_phrase
