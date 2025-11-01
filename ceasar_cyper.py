@@ -19,35 +19,29 @@ def main():
     shift_key = input("Please add a shift key number: \n")
     while not shift_key.isnumeric():
         shift_key = input("Shift key, must be a number. Try again: ")
-
-    if mode == "encode":
-        encrypt(phrase)
-    else:
-        decrypt(phrase)
+    shift_key = int(shift_key)
+    
+    cyper(phrase, mode)
 
     print(f"Your new phrase is: {new_phrase}")
-# TODO - Encrypt
-def encrypt(phrase):
-    global new_phrase
-    for letter in phrase:
-       if letter.islower():
-           position = ascii_lowercase.index(letter)
-           new_phrase += ascii_lowercase[position + shift_key]
-       elif letter.isupper():
-           position = ascii_lowercase.index(letter)
-           new_phrase += ascii_lowercase[position + shift_key]
-    return new_phrase
 
-# TODO - Decrypt message
-def decrypt(phrase):
+
+# TODO - Encrypt - make simpler, check for edge case - z
+def cyper(phrase, mode):
     global new_phrase
     for letter in phrase:
        if letter.islower():
            position = ascii_lowercase.index(letter)
-           new_phrase += ascii_lowercase[position - shift_key]
+           if mode == "encode":
+               new_phrase += ascii_lowercase[position + shift_key]
+           else:
+               new_phrase += ascii_lowercase[position - shift_key]
        elif letter.isupper():
-           position = ascii_lowercase.index(letter)
-           new_phrase += ascii_lowercase[position - shift_key]
+           position = ascii_uppercase.index(letter)
+           if mode == "encode":
+               new_phrase += ascii_uppercase[position + shift_key]
+           else:
+               new_phrase += ascii_uppercase[position - shift_key]
     return new_phrase
 
 if __name__ == "__main__":
